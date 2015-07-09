@@ -23,10 +23,10 @@ public class Address {
     @NonNull
     String street;
 
-    @JsonIgnore
     @NonFinal
     @NonNull
-    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToMany
     @JoinTable(
             name = "addresses_people",
             joinColumns = {@JoinColumn(name = "address_id", referencedColumnName = "id")},

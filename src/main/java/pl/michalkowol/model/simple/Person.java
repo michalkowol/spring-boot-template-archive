@@ -1,4 +1,4 @@
-package pl.michalkowol.model;
+package pl.michalkowol.model.simple;
 
 import lombok.NonNull;
 import lombok.Value;

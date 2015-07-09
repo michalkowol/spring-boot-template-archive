@@ -1,5 +1,6 @@
 package pl.michalkowol.model.jpa;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -28,6 +29,7 @@ public class Person {
     @NonFinal
     @NonNull
     @ManyToMany
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @JoinTable(
             name = "addresses_people",
             joinColumns = {@JoinColumn(name = "person_id", referencedColumnName = "id")},

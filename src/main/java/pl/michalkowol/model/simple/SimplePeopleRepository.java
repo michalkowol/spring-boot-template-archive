@@ -1,10 +1,10 @@
-package pl.michalkowol;
+package pl.michalkowol.model.simple;
 
 import lombok.NonNull;
 import lombok.val;
 import org.springframework.stereotype.Repository;
-import pl.michalkowol.model.Address;
-import pl.michalkowol.model.Person;
+import pl.michalkowol.model.simple.Address;
+import pl.michalkowol.model.simple.Person;
 
 import java.util.Arrays;
 import java.util.Collections;
