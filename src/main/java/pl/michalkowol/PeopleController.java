@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.michalkowol.model.Person;
+import pl.michalkowol.repository.PeopleRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,18 +17,25 @@ import java.util.Optional;
 @RequestMapping("/people")
 public class PeopleController {
 
+    private final SimplePeopleRepository simplePeopleRepository;
     private final PeopleRepository peopleRepository;
 
     @Autowired
-    public PeopleController(PeopleRepository peopleRepository) {
+    public PeopleController(SimplePeopleRepository simplePeopleRepository, PeopleRepository peopleRepository) {
+        this.simplePeopleRepository = simplePeopleRepository;
         this.peopleRepository = peopleRepository;
     }
 
     @RequestMapping
     public List<Person> people() {
-        List<Person> people = peopleRepository.list();
+        List<Person> people = simplePeopleRepository.list();
         people.stream().map(p -> "Name " + p.getName()).forEach(System.out::println);
         return people;
+    }
+
+    @RequestMapping("/jpa")
+    public Iterable<pl.michalkowol.model.jpa.Person> person() {
+        return peopleRepository.findAll();
     }
 
     @RequestMapping("/{id}")
@@ -38,7 +46,7 @@ public class PeopleController {
             throw new NameException(id);
         }
 
-        return peopleRepository.byId(id);
+        return simplePeopleRepository.byId(id);
     }
 
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)

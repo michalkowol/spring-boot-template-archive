@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  */
 
 @Repository
-public class PeopleRepository {
+public class SimplePeopleRepository {
     public Optional<Person> byId(@NonNull String id) {
         if (id.equals("1")){
             return Optional.of(new Person("Michal", Arrays.asList(new Address("Chemiczna", "Gliwice"), new Address("Pulawska", "Warszawa"))));
