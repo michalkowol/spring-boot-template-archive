@@ -1,4 +1,4 @@
-package pl.michalkowol.model.simple;
+package pl.michalkowol.repository;
 
 import lombok.NonNull;
 import lombok.val;

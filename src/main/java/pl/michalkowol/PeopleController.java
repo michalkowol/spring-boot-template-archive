@@ -42,13 +42,15 @@ public class PeopleController {
             throw new ArithmeticException(id.toString());
         } else if (id == 11) {
             throw new NameException(id.toString());
+        } if (id == 12) {
+            throw new IllegalStateException(id.toString());
         }
 
         Optional<Person> person = Optional.ofNullable(peopleRepository.findOne(id));
         return person;
     }
 
-    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NameException.class)
     public Exception wrongName(NameException ex) {
         log.error("Wrong name: {}", ex.getName(), ex);
