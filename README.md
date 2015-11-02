@@ -28,5 +28,6 @@ java -jar ${NAME}-${VERSION}-exec.jar
 ## References
 * [Spring Boot](http://projects.spring.io/spring-boot/)
 * [Use Jetty instead of Tomcat](http://docs.spring.io/spring-boot/docs/current/reference/html/howto-embedded-servlet-containers.html#howto-use-jetty-instead-of-tomcat)
+* [CrudRepository](http://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html)
 * [Jackson Mappers Wrapper (Karol Król)](https://github.com/kjkrol/jackson-mappers-wrapper)
 * [NoSuchMethodError when serializing Guava types](https://github.com/FasterXML/jackson-datatype-guava/issues/78)
