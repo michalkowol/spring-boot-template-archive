@@ -1,7 +1,9 @@
 *.class
 *.log
-logs
-target
+/logs
+/build
+/classes
+/.gradle
 /.idea
 /*.iml
 /.idea_modules

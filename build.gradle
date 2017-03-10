@@ -1,0 +1,115 @@
+group = 'com.michalkowol'
+version = '0.1.0'
+
+buildscript {
+    ext.spring_boot_version = '2.0.0.BUILD-SNAPSHOT'
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url 'https://repo.spring.io/snapshot' }
+        maven { url 'https://repo.spring.io/libs-milestone' }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'org.springframework.boot'
+
+defaultTasks 'bootRun'
+
+jar {
+    baseName = "${project.name}-assembly"
+    version = project.version
+}
+
+sourceSets {
+    integrationTest {
+        java {
+            srcDirs += 'src/it/java'
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+        }
+        resources.srcDirs += 'src/it/resources'
+    }
+}
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
+task integrationTest(type: Test) {
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+}
+
+test {
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}
+
+integrationTest {
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}
+
+task stage(dependsOn: ['assemble', 'clean'])
+assemble.mustRunAfter clean
+stage.dependsOn(assemble)
+
+jacocoTestReport {
+    reports {
+        csv.enabled false
+        html.enabled true
+        xml.enabled true
+    }
+    dependsOn test
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://repo.spring.io/libs-milestone' }
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    ext.jacksonVersion = '2.8.7'
+
+    compile('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+    compile 'org.springframework.boot:spring-boot-starter-jetty'
+    compile 'org.springframework.boot:spring-boot-devtools'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+
+    compile 'org.slf4j:slf4j-api:1.7.+'
+    compile 'ch.qos.logback:logback-classic:1.1.+'
+
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-jdbc'
+    compile 'javax.el:el-api:2.+'
+    compile 'com.zaxxer:HikariCP:2.5.+'
+    compile 'org.postgresql:postgresql:9.4.+'
+    compile 'com.h2database:h2:1.4.+'
+    compile 'org.flywaydb:flyway-core:4.1.+'
+
+    compile 'com.google.guava:guava:21.+'
+    compileOnly 'org.projectlombok:lombok:1.16.+'
+
+    compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    compile "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
+    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion"
+    compile 'org.codehaus.woodstox:woodstox-core-asl:4.4.+'
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    integrationTestCompile 'com.ninja-squad:DbSetup:2.1.+'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.4.1'
+}
