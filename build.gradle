@@ -99,6 +99,7 @@ dependencies {
     compile 'org.flywaydb:flyway-core:4.1.+'
 
     compile 'com.google.guava:guava:21.+'
+    compile 'javax.inject:javax.inject:1'
     compileOnly 'org.projectlombok:lombok:1.16.+'
 
     compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"

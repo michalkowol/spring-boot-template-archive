@@ -1,9 +1,9 @@
 package com.michalkowol.cars;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
+import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,7 +22,7 @@ class CarsController {
 
     private final CarsRepository carsRepository;
 
-    @Autowired
+    @Inject
     CarsController(CarsRepository carsRepository) {
         this.carsRepository = carsRepository;
     }

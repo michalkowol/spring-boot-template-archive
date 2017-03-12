@@ -6,11 +6,11 @@ import com.ninja_squad.dbsetup.destination.DataSourceDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.util.List;
 
@@ -21,21 +21,20 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.StringStartsWith.startsWith;
 import static org.junit.Assert.assertThat;
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CarsSpec {
 
-    @Autowired
+    @Inject
     private CarsController carsController;
 
-    @Autowired
+    @Inject
     private CarsRepository carsRepository;
 
-    @Autowired
+    @Inject
     private TestRestTemplate restTemplate;
 
-    @Autowired
+    @Inject
     private DataSource dataSource;
 
     private final Operation deleteAllCars = deleteAllFrom("cars");

@@ -1,9 +1,9 @@
 package com.michalkowol.hackernews;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,7 +12,7 @@ class HackerNewsService {
 
     private final RestTemplate restTemplate;
 
-    @Autowired
+    @Inject
     HackerNewsService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
