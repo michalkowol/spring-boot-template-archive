@@ -6,19 +6,31 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
+        maven { url 'https://plugins.gradle.org/m2/' }
         maven { url 'https://repo.spring.io/snapshot' }
         maven { url 'https://repo.spring.io/libs-milestone' }
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
+        classpath 'gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.17'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'org.springframework.boot'
+//apply plugin: 'com.gorylenko.gradle-git-properties'
 
 defaultTasks 'bootRun'
+
+springBoot  {
+    buildInfo()
+}
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
 
 jar {
     baseName = "${project.name}-assembly"
